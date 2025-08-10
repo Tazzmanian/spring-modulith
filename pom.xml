@@ -159,4 +159,19 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>compose</id>
+			<properties>
+				<spring-boot.run.profiles>compose</spring-boot.run.profiles>
+			</properties>
+		</profile>
+		<profile>
+			<id>testcontainers</id>
+			<properties>
+				<spring-boot.run.profiles>testcontainers</spring-boot.run.profiles>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>
