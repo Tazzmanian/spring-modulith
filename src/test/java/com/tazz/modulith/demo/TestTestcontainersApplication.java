@@ -21,12 +21,6 @@ public class TestTestcontainersApplication {
                 .withPassword("sa");
     }
 
-//    @Bean
-//    @ServiceConnection
-//    DockerComposeContainer<?> pgAdmin() {
-//        return new DockerComposeContainer<>("dpage/pgadmin4");
-//    }
-
     public static void main(String[] args) {
         SpringApplication.from(ModulithDemoApplication::main)
                 .with(TestTestcontainersApplication.class).run(args);
