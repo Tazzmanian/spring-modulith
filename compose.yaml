@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: postgresDB
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=mydatabase'
@@ -10,6 +11,29 @@ services:
       - '5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@abv.bg}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    networks:
+      - postgres
+    ports:
+      - "5050:80"
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  pgadmin:
+
+networks:
+  postgres:
+    driver: bridge
