@@ -1,4 +1,4 @@
-package com.tazz.modulith.modulith_demo;
+package com.tazz.modulith.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.tazz.modulith.modulith_demo;
+package com.tazz.modulith.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
