@@ -2,24 +2,37 @@ package com.tazz.modulith.demo.order;
 
 import com.tazz.modulith.demo.order.type.Status;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Entity
-public record Order(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id,
-        @Column(unique = true, nullable = false)
-        String identifier,
-        String customerName,
-        String customerEmail,
-        Timestamp orderDate,
-        Status status
-) {
-    public Order {
+@Table(name = "orders")
+@Data
+@NoArgsConstructor
+public final class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true, nullable = false)
+    private String identifier;
+    private String customerName;
+    private String customerEmail;
+    private Timestamp orderDate;
+    private Status status;
+
+    public Order(
+            Long id,
+            String identifier, String customerName, String customerEmail, Timestamp orderDate, Status status) {
         if (status == null) {
             status = Status.OPEN;
         }
+        this.id = id;
+        this.identifier = identifier;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.orderDate = orderDate;
+        this.status = status;
     }
 }
