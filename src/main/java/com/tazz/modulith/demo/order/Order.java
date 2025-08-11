@@ -2,8 +2,10 @@ package com.tazz.modulith.demo.order;
 
 import com.tazz.modulith.demo.order.type.Status;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
@@ -19,6 +21,7 @@ public final class Order {
     private String identifier;
     private String customerName;
     private String customerEmail;
+    @Setter(AccessLevel.NONE)
     private Timestamp orderDate;
     private Status status;
 

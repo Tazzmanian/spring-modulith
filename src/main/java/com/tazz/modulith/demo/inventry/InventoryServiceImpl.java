@@ -1,7 +1,7 @@
-package com.tazz.modulith.demo.inventry.exposed;
+package com.tazz.modulith.demo.inventry;
 
-import com.tazz.modulith.demo.inventry.Inventory;
-import com.tazz.modulith.demo.inventry.InventoryUtils;
+import com.tazz.modulith.demo.inventry.exposed.InventoryDto;
+import com.tazz.modulith.demo.inventry.exposed.InventoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
