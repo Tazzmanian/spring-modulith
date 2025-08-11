@@ -1,5 +1,6 @@
-package com.tazz.modulith.demo.inventry;
+package com.tazz.modulith.demo.inventry.exposed;
 
+import com.tazz.modulith.demo.inventry.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

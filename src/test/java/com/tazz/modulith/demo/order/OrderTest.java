@@ -7,8 +7,8 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("compose")
-@ApplicationModuleTest
-class OrderTest {
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
+class  OrderTest {
 
     @Test
     void verifyModule(){
