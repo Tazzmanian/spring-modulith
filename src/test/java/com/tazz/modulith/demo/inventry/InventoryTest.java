@@ -1,5 +1,6 @@
 package com.tazz.modulith.demo.inventry;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -9,5 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 class InventoryTest {
     @Test
     void verifyModule(){
+        Assertions.assertTrue(false);
     }
 }
