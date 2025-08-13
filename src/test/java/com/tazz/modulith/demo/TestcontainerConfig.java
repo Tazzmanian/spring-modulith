@@ -13,6 +13,8 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
+
+// https://spring.io/blog/2023/06/23/improved-testcontainers-support-in-spring-boot-3-1
 @TestConfiguration(proxyBeanMethods = false)
 public class TestcontainerConfig {
 
