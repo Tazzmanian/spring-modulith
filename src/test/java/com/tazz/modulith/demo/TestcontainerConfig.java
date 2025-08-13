@@ -1,5 +1,9 @@
 package com.tazz.modulith.demo;
 
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -14,12 +18,15 @@ public class TestcontainerConfig {
 
     @Bean
     Network getNetwork() {
-        return Network.newNetwork();
+        return Network.builder()
+                .driver("bridge")
+                .build();
     }
 
     @Bean
     @ServiceConnection
     @RestartScope // when there is spring-boot-devtools, if not container.withReuse(true) and in testcontainers.properties testcontainers.reuse.enabled=true
+    @Qualifier("postgres")
     PostgreSQLContainer<?> postgreSQLContainer(Network network) {
         return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
                 .withCreateContainerCmdModifier(cmd -> cmd.withName("postgres"))
@@ -31,14 +38,23 @@ public class TestcontainerConfig {
 
     @Bean
     @RestartScope
+    @Qualifier("pgadmin")
     GenericContainer<?> pgAdmin(Network network) {
-        return new GenericContainer<>(DockerImageName.parse("dpage/pgadmin4"))
-                .withCreateContainerCmdModifier(cmd -> cmd.withName("pgadmin-testcontainer"))
+        var container = new GenericContainer<>(DockerImageName.parse("dpage/pgadmin4"))
+                .withCreateContainerCmdModifier(cmd -> {
+                    cmd.withName("pgadmin-testcontainer");
+                    var hostConfig = cmd.getHostConfig();
+                    var ports = new Ports();
+                    var portBinding = new PortBinding(new Ports.Binding(null, "5050"), ExposedPort.parse("80"));
+                    ports.add(portBinding);
+                    hostConfig.withPortBindings(ports);
+                    cmd.withHostConfig(hostConfig);
+                })
                 .withEnv("PGADMIN_DEFAULT_EMAIL", "pgadmin4@abv.bg")
                 .withEnv("PGADMIN_DEFAULT_PASSWORD", "admin")
-//                .withEnv("PGADMIN_CONFIG_SERVER_MODE", "false")
-                .withExposedPorts(80)
                 .withNetwork(network);
+
+        return container;
     }
 
 
