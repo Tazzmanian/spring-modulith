@@ -1,8 +1,6 @@
 package com.tazz.modulith.demo;
 
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.Ports;
+import com.github.dockerjava.api.model.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -12,6 +10,9 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 // https://spring.io/blog/2023/06/23/improved-testcontainers-support-in-spring-boot-3-1
@@ -26,12 +27,23 @@ public class TestcontainerConfig {
     }
 
     @Bean
+    Volumes volumes() {
+        List<Volume> volumes = new ArrayList<>();
+        volumes.add(new Volume("pgAdmin"));
+        volumes.add(new Volume("postgres"));
+        return new Volumes(volumes);
+    }
+
+    @Bean
     @ServiceConnection
     @RestartScope // when there is spring-boot-devtools, if not container.withReuse(true) and in testcontainers.properties testcontainers.reuse.enabled=true
     @Qualifier("postgres")
     PostgreSQLContainer<?> postgreSQLContainer(Network network) {
         return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-                .withCreateContainerCmdModifier(cmd -> cmd.withName("postgres"))
+                .withCreateContainerCmdModifier(cmd -> {
+                    cmd.withName("postgres");
+                    cmd.getHostConfig().withBinds(new Bind("postgres-data", new Volume("/var/lib/postgresql/data")));
+                })
                 .withDatabaseName("test")
                 .withUsername("sa")
                 .withPassword("sa")
@@ -50,6 +62,7 @@ public class TestcontainerConfig {
                     var portBinding = new PortBinding(new Ports.Binding(null, "5050"), ExposedPort.parse("80"));
                     ports.add(portBinding);
                     hostConfig.withPortBindings(ports);
+                    hostConfig.withBinds(new Bind("pg-admin", new Volume("/var/lib/pgadmin")));
                     cmd.withHostConfig(hostConfig);
                 })
                 .withEnv("PGADMIN_DEFAULT_EMAIL", "pgadmin4@abv.bg")
