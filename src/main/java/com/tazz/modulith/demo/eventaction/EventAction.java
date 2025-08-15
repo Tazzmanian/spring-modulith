@@ -7,7 +7,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(indexes = {
-
+    @Index(name = "actionId", columnList = "action")
 })
 public class EventAction {
     @Id
