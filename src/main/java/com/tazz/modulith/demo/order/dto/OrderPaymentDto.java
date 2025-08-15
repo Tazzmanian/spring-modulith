@@ -1,7 +1,7 @@
 package com.tazz.modulith.demo.order.dto;
 
-import com.tazz.modulith.demo.eventactioin.action.Action;
-import com.tazz.modulith.demo.eventactioin.action.CustomEventMarker;
+import com.tazz.modulith.demo.eventaction.action.Action;
+import com.tazz.modulith.demo.eventaction.action.CustomEventMarker;
 import org.jmolecules.event.types.DomainEvent;
 
 @CustomEventMarker(eventAction = Action.PAYMENT)

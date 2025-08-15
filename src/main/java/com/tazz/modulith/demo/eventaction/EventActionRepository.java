@@ -1,6 +1,6 @@
-package com.tazz.modulith.demo.eventactioin;
+package com.tazz.modulith.demo.eventaction;
 
-import com.tazz.modulith.demo.eventactioin.action.Action;
+import com.tazz.modulith.demo.eventaction.action.Action;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package com.tazz.modulith.demo.eventactioin.action.converters;
+package com.tazz.modulith.demo.eventaction.action.converters;
 
-import com.tazz.modulith.demo.eventactioin.action.Action;
+import com.tazz.modulith.demo.eventaction.action.Action;
 import jakarta.persistence.AttributeConverter;
 
 public class ActionConverter implements AttributeConverter<Action, String> {

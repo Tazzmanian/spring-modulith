@@ -1,6 +1,6 @@
 @org.springframework.modulith.ApplicationModule(
         allowedDependencies = {
-                "inventry::exposed"
+                "inventry::exposed", "eventaction::action"
         }
 )
 package com.tazz.modulith.demo.order;

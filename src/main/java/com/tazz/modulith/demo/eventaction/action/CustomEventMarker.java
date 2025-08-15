@@ -1,4 +1,4 @@
-package com.tazz.modulith.demo.eventactioin.action;
+package com.tazz.modulith.demo.eventaction.action;
 
 import java.lang.annotation.*;
 

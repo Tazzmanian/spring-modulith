@@ -1,7 +1,7 @@
-package com.tazz.modulith.demo.eventactioin;
+package com.tazz.modulith.demo.eventaction;
 
-import com.tazz.modulith.demo.eventactioin.action.Action;
-import com.tazz.modulith.demo.eventactioin.action.CustomEventMarker;
+import com.tazz.modulith.demo.eventaction.action.Action;
+import com.tazz.modulith.demo.eventaction.action.CustomEventMarker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
