@@ -4,6 +4,7 @@ import com.tazz.modulith.demo.inventry.exposed.InventoryDto;
 import com.tazz.modulith.demo.inventry.exposed.InventoryService;
 import com.tazz.modulith.demo.order.dto.InventoryRequestDto;
 import com.tazz.modulith.demo.order.dto.OrderDto;
+import com.tazz.modulith.demo.order.dto.OrderPaymentDto;
 import com.tazz.modulith.demo.order.dto.OrderResponseDto;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public record OrderService(InventoryService inventoryService,
-                           OrderRepository orderRepository) {
+                           OrderRepository orderRepository,
+                           OrderEventService orderEventService
+) {
 
     public OrderResponseDto createOrder(OrderDto orderDto) {
         // get inventory by name
@@ -25,6 +28,9 @@ public record OrderService(InventoryService inventoryService,
         var order = persistOrder(orderDto);
         final AtomicLong amount = new AtomicLong();
         buildAndPersistOrderInventories(orderDto, inventories, order.getId(), amount);
+
+        orderEventService.completeOrder(new OrderPaymentDto(order.getIdentifier(), amount.get()));
+
         return new OrderResponseDto("Order under process", 102);
     }
 
