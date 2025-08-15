@@ -6,6 +6,8 @@ import com.tazz.modulith.demo.order.dto.InventoryRequestDto;
 import com.tazz.modulith.demo.order.dto.OrderDto;
 import com.tazz.modulith.demo.order.dto.OrderPaymentDto;
 import com.tazz.modulith.demo.order.dto.OrderResponseDto;
+import org.springframework.modulith.events.CompletedEventPublications;
+import org.springframework.modulith.events.IncompleteEventPublications;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +18,10 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public record OrderService(InventoryService inventoryService,
                            OrderRepository orderRepository,
-                           OrderEventService orderEventService
+                           OrderEventService orderEventService,
+                           OrderInventoryRepository orderInventoryRepository,
+                           CompletedEventPublications completedEventPublications,
+                           IncompleteEventPublications incompleteEventPublications
 ) {
 
     public OrderResponseDto createOrder(OrderDto orderDto) {

@@ -31,8 +31,9 @@ public class TestcontainerConfig {
         return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
                 .withCreateContainerCmdModifier(cmd -> {
                     cmd.withName("postgres");
-                    cmd.getHostConfig().withBinds(new Bind("postgres-data", new Volume("/var/lib/postgresql/data")));
+//                    cmd.getHostConfig().withBinds(new Bind("postgres-data", new Volume("/var/lib/postgresql/data")));
                 })
+//                .withEnv("PGDATA", "/var/lib/postgresql/data/pgdata")
                 .withDatabaseName("test")
                 .withUsername("sa")
                 .withPassword("sa")
